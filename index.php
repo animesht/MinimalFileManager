@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-
 class Fm {
 
     private $base_path = 'content';
@@ -250,12 +247,19 @@ class Fm {
         echo '<textarea>'.htmlentities(file_get_contents($target)).'</textarea>';
     }
 
+    /**
+     * Takes a file size in bytes and process a human readable filesize.
+     */
     private function human_filesize($bytes, $decimals = 2) {
         $sz = 'BKMGTP';
         $factor = floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
     }
 
+    /**
+     * Taken from php.net, this function takes an permission value and builds a 
+     * human_readable unix style permission string.
+     */
     private function unix_perm_string($perms) {
         if (($perms & 0xC000) == 0xC000) {
             // Socket
@@ -307,52 +311,55 @@ class Fm {
         return $info;
     }
 
-    // taken from code igniter
-	private function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date')) {
-		if ( ! file_exists($file))
-		{
-			return FALSE;
-		}
+    /**
+     * Taken from code igniter. This function returns information about a given 
+     * file.
+     */
+    private function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date')) {
+        if ( ! file_exists($file))
+        {
+            return FALSE;
+        }
 
-		if (is_string($returned_values))
-		{
-			$returned_values = explode(',', $returned_values);
-		}
+        if (is_string($returned_values))
+        {
+            $returned_values = explode(',', $returned_values);
+        }
 
-		foreach ($returned_values as $key)
-		{
-			switch ($key)
-			{
-				case 'name':
-					$fileinfo['name'] = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
-					break;
-				case 'server_path':
-					$fileinfo['server_path'] = $file;
-					break;
-				case 'size':
-					$fileinfo['size'] = filesize($file);
-					break;
-				case 'date':
-					$fileinfo['date'] = filemtime($file);
-					break;
-				case 'readable':
-					$fileinfo['readable'] = is_readable($file);
-					break;
-				case 'writable':
-					// There are known problems using is_weritable on IIS.  It may not be reliable - consider fileperms()
-					$fileinfo['writable'] = is_writable($file);
-					break;
-				case 'executable':
-					$fileinfo['executable'] = is_executable($file);
-					break;
-				case 'fileperms':
-					$fileinfo['fileperms'] = fileperms($file);
-					break;
-			}
-		}
+        foreach ($returned_values as $key)
+        {
+            switch ($key)
+            {
+                case 'name':
+                    $fileinfo['name'] = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
+                    break;
+                case 'server_path':
+                    $fileinfo['server_path'] = $file;
+                    break;
+                case 'size':
+                    $fileinfo['size'] = filesize($file);
+                    break;
+                case 'date':
+                    $fileinfo['date'] = filemtime($file);
+                    break;
+                case 'readable':
+                    $fileinfo['readable'] = is_readable($file);
+                    break;
+                case 'writable':
+                    // There are known problems using is_weritable on IIS.  It may not be reliable - consider fileperms()
+                    $fileinfo['writable'] = is_writable($file);
+                    break;
+                case 'executable':
+                    $fileinfo['executable'] = is_executable($file);
+                    break;
+                case 'fileperms':
+                    $fileinfo['fileperms'] = fileperms($file);
+                    break;
+            }
+        }
 
-		return $fileinfo;
-	}
+        return $fileinfo;
+    }
 }
 $fm = new Fm();
 

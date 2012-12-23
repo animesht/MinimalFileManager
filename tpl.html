@@ -13,10 +13,10 @@
 
             <!-- tool box -->
             <div class="well-small" id="tools">
-                <a class="btn btn-primary btn-small" id="upload-file"><i class="icon-upload icon-white"></i> Upload</a>
-                <a class="btn btn-small" data-type="file" id="new-file"><i class="icon-file"></i> New File</a>
-                <a class="btn btn-small" data-type="folder" id="new-folder"><i class="icon-folder-close"></i> New folder</a>
-                <a class="btn btn-small" id="clear-msgbox"><i class="icon-remove-circle"></i> Clear Messages</a>
+                <a class="btn btn-primary btn-small" id="upload-button"><i class="icon-upload icon-white"></i> Upload</a>
+                <a class="btn btn-small" data-type="file" id="new-file-button"><i class="icon-file"></i> New File</a>
+                <a class="btn btn-small" data-type="folder" id="new-folder-button"><i class="icon-folder-close"></i> New folder</a>
+                <a class="btn btn-small" id="clear-msgbox-button"><i class="icon-remove-circle"></i> Clear Messages</a>
             </div>
 
             <!-- breadcrumb -->
@@ -36,59 +36,59 @@
             <div id="msgbox"></div>
 
             <!-- new modal -->
-            <div id="new-modal" class="modal hide fade">
+            <div id="new" class="modal hide fade">
                 <div class="modal-header">
                     <h3>New</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="input-xlarge" id="new-modal-target" />
-                    <input type="hidden" id="new-modal-type" />
+                    <input type="hidden" id="new-type" />
+                    <input type="text" class="input-xlarge" id="new-target" />
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal" id="new-modal-submit">Create</button>
-                    <button class="btn" data-dismiss="modal">Cancel</button>
+                    <a class="submit btn btn-primary" data-dismiss="modal">Create</a>
+                    <a class="btn" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
 
             <!-- move modal -->
-            <div id="move-modal" class="modal hide fade">
+            <div id="move" class="modal hide fade">
                 <div class="modal-header">
                     <h3>Move / Rename</h3>
                 </div>
                 <div class="modal-body">
                     From:<br />
-                    <input type="text" class="input-xlarge" id="move-modal-source" /><br />
+                    <input type="text" class="input-xlarge" id="move-source" /><br />
                     To:<br />
-                    <input type="text" class="input-xlarge" id="move-modal-destination" />
+                    <input type="text" class="input-xlarge" id="move-destination" />
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal" id="move-modal-submit">Move</button>
-                    <button class="btn" data-dismiss="modal">Cancel</button>
+                    <a class="submit btn btn-primary" data-dismiss="modal">Move</a>
+                    <a class="btn" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
 
             <!-- remove modal -->
-            <div id="remove-modal" class="modal hide fade">
+            <div id="remove" class="modal hide fade">
                 <div class="modal-header">
                     <h3>Remove</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="input-xlarge" id="remove-modal-target" disabled /><br />
+                    <input type="text" class="input-xlarge" id="remove-target" disabled /><br />
                     <small>Only empty directories can be removed.</small>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" data-dismiss="modal" id="remove-modal-submit">Remove</button>
-                    <button class="btn" data-dismiss="modal">Cancel</button>
+                    <a class="submit btn btn-danger" data-dismiss="modal">Remove</a>
+                    <a class="btn" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
 
             <!-- upload modal -->
-            <div id="upload-modal" class="modal hide fade">
+            <div id="upload" class="modal hide fade">
                 <div class="modal-header">
                     <h3>Upload</h3>
                 </div>
                 <div class="modal-body">
-                    <form id="upload" method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
                         <input type="hidden" name="fun" value="upload" />
                         <input type="hidden" name="path" id="upload-path" />
                         <input type="file" name="files[]" multiple /><br />
@@ -96,8 +96,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal" id="upload-modal-submit">Upload</button>
-                    <button class="btn" data-dismiss="modal" id="upload-modal-clear">Clear</button>
+                    <a class="submit btn btn-primary" data-dismiss="modal">Upload</a>
+                    <a class="btn" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
 

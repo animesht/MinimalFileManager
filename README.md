@@ -1,7 +1,7 @@
 # Minimal File Manager
 
-This is a minimalistic file manager written mainly in javascript. It's front
-end consists of Jquery and bootstrap, the back end is a simple PHP script.
+This is a minimalist file manager written mainly in javascript. It's front end
+consists of Jquery and bootstrap, the back end is a simple PHP script.
 
 Communication is done via JSON.
 

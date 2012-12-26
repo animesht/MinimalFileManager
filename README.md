@@ -21,7 +21,7 @@ You will be able to manage the files inside the `content` folder. If you want
 to use a different folder, replace the `$base_path` in `index.php` and
 `BASE_PATH` in `js/fm.js`.
 
-## Focues
+## Focus
 I tried to find a simple file manager which can be integrated easily in a web
 application. All the things I found did not fit for me, so I wrote my own one.
 

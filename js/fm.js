@@ -20,6 +20,17 @@ function err_msg(msg, context) {
 }
 
 /**
+ * Add json result.
+ */
+function add_result(result) {
+    // add msg
+    add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
+
+    // reload fm
+    refresh();
+}
+
+/**
  * Do an ajax request with data (default: json) + register success callback.
  * Allows to use formdata.
  */
@@ -247,42 +258,39 @@ function action_show_upload_modal(event) {
 
 // register modal buttons
 $('div#new a.submit').click(function(event) {
-    request({
-        'fun'   : 'create',
-        'type'  : $('div#new input#new-type').val(),
-        'target': $('div#new input#new-target').val()
-    }, function(result) {
-        add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
-        refresh();
-    });
+    request(
+        {
+            'fun'   : 'create',
+            'type'  : $('div#new input#new-type').val(),
+            'target': $('div#new input#new-target').val()
+        },
+        add_result
+    );
 });
 $('div#move a.submit').click(function(event) {
-    request({
-        'fun'        : 'move',
-        'source'     : $('div#move input#move-source').val(),
-        'destination': $('div#move input#move-destination').val()
-    }, function(result) {
-        add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
-        refresh();
-    });
+    request(
+        {
+            'fun'        : 'move',
+            'source'     : $('div#move input#move-source').val(),
+            'destination': $('div#move input#move-destination').val()
+        },
+        add_result
+    );
 });
 $('div#remove a.submit').click(function(event) {
-    request({
-        'fun'   : 'remove',
-        'target': $('div#remove input#remove-target').val()
-    }, function(result) {
-        add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
-        refresh();
-    });
+    request(
+        {
+            'fun'   : 'remove',
+            'target': $('div#remove input#remove-target').val()
+        },
+        add_result
+    );
 });
 $('div#upload a.submit').click(function(event) {
     // submit form in background
     request(
         new FormData($('div#upload form')[0]),
-        function(result) {
-            add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
-            refresh();
-        },
+        msgbox.add_result,
         true
     );
 });

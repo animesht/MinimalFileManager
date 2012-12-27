@@ -32,6 +32,11 @@
                 <li><i class="icon-remove"></i> Remove</li>
             </ul>
 
+            <!-- progress bar -->
+            <div id="progress" class="progress progress-striped active hide">
+                <div class="bar"></div>
+            </div>
+
             <!-- message box -->
             <div id="msgbox"></div>
 
@@ -89,7 +94,7 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="fun" value="upload" />
+                        <input type="hidden" name="fun" id="upload-fun" />
                         <input type="hidden" name="path" id="upload-path" />
                         <input type="file" name="files[]" multiple /><br />
                         <small>You can select multiple files.</small>

@@ -4,7 +4,7 @@ var BASE_PATH = 'content';
  * Add a new message to the messagebox.
  */
 function add_msg(msg, type) {
-    $('div#msgbox').append(
+    $('div#msgbox').prepend(
         $('<div />').addClass('alert').addClass(type).append(
             '<a class="close" data-dismiss="alert">&times;</a>',
             msg
@@ -26,6 +26,9 @@ function add_result(result) {
     // add msg
     add_msg(result.msg, (result.status == 'ok') ? 'alert-success' : 'alert-error');
 
+    // hide progressbar
+    $('div#progress').hide();
+
     // reload fm
     refresh();
 }
@@ -43,17 +46,37 @@ function request(data, success, isFormData) {
         cache: false,
         dataType: 'json',
         success: success,
-        error: function (jqXHR, status) {err_msg(status, 'AJAX');}
+        error: function (jqXHR, status) {
+            err_msg(status, 'AJAX');
+        }
     }
 
     // set options for formdata
     if (isFormData === true) {
         options.contentType = false;
         options.processData = false;
+
+        // progressbar on upload
+        options.xhr = function() {
+            var x = $.ajaxSettings.xhr();
+            if (x.upload)
+                x.upload.addEventListener('progress', progressBar, false);
+            return x;
+        }
     }
 
     // do request
     $.ajax(options);
+}
+
+/**
+ * progress bar callback for upload
+ */
+function progressBar(event) {
+    var done = event.position || event.loaded;
+    var total = event.totalSize || event.total;
+    var per = ( Math.floor(done / total * 1000) / 10 ) + '%';
+    $('div#progress > div.bar').css('width', per).text(per);
 }
 
 /**
@@ -249,12 +272,22 @@ function action_show_remove_modal(event) {
  * Show 'upload-modal'.
  */
 function action_show_upload_modal(event) {
+    // set fun
+    $('div#upload input#upload-fun').val('upload');
     // set path
     $('div#upload input#upload-path').val($('div#filemanager').data('path'));
 
     // show modal
     $('div#upload').modal('show');
 }
+
+// focus field on shown event
+$('div#new').on('shown', function(event) {
+    $('div#new input#new-target').focus();
+});
+$('div#move').on('shown', function(event) {
+    $('div#move input#move-destination').focus();
+});
 
 // register modal buttons
 $('div#new a.submit').click(function(event) {
@@ -290,9 +323,13 @@ $('div#upload a.submit').click(function(event) {
     // submit form in background
     request(
         new FormData($('div#upload form')[0]),
-        msgbox.add_result,
+        add_result,
         true
     );
+
+    // show progress bar
+    $('div#progress div.bar').css('width', 0);
+    $('div#progress').show();
 });
 
 // clear upload modal on hide

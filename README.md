@@ -5,6 +5,15 @@ consists of Jquery and bootstrap, the back end is a simple PHP script.
 
 Communication is done via JSON.
 
+## Important Note
+A newer version of this file manager has been used to create
+[Phoenix-Tpl](https://github.com/W4RH4WK/Phoenix-Tpl). If you want to have a
+look at this, here are the relevant files.
+
+ - [FileManager.php](https://github.com/W4RH4WK/Phoenix-Tpl/blob/master/app/FileManager.php)
+ - [filemanager.html.twig](https://github.com/W4RH4WK/Phoenix-Tpl/blob/master/tpl/filemanager.html.twig)
+ - [filemanager.js](https://github.com/W4RH4WK/Phoenix-Tpl/blob/master/web/assets/filemanager.js)
+
 ## Install
 Just put the files up on your PHP capable webserver and browse the `index.php`.
 You will be able to manage the files inside the `content` folder. If you want
